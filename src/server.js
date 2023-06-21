@@ -55,6 +55,9 @@ app.put('/archivos/:fileName'), (req, res) => {};
 // usar el metodo delete en postman
 app.delete('/archivos/:fileName', (req, res) => {});
 
+// bonus: ruta que devuelva los nombres de todos los archivos disponibles
+app.get('/archivos', (req, res) => {});
+
 const server = http.createServer(app);
 
 server.listen(PORT, () => {
