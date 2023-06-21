@@ -22,7 +22,7 @@ app.post('/archivos', (req, res) => {
 
 // ruta para leer un archivo    localhost:3000/archivos/file1
 /*
-El escribir :fileName nos permite guardar en el objeto req.params una propiedad llamada fileName, la cual almacenara el valor pasado en ese lugar en la peticion
+El escribir :fileName nos permite guardar en el objeto req.params una propiedad llamada fileName, la cual va a almacenar el valor pasado en ese lugar en la peticion
 En este caso req.params.fileName = 'file1';
 */
 app.get('/archivos/:fileName', (req, res) => {
