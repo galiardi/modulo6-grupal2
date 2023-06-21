@@ -8,7 +8,7 @@ const app = express();
 
 /*
 Los middlewares son funciones que se ejecutan antes que las peticiones lleguen a las rutas
-En este caso express.json() nos entrega una funcion que parsea el body de las peticiones post y lo disponibiliza en el objeto req.body
+En este caso express.json() nos entrega una funcion que parsea el body de las peticiones post, put, patch y lo disponibiliza en el objeto req.body
 */
 
 // middlewares
