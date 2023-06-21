@@ -15,12 +15,16 @@ En este caso express.json() nos entrega una funcion que parsea el body de las pe
 app.use(express.json());
 
 // routes
+
 // ruta para crear un archivo
+// localhost:3000/archivos
+// al hacer la peticion desde postman, en el body del metodo post agregar la informacion necesaria
 app.post('/archivos', (req, res) => {
   console.log(req.body);
 });
 
-// ruta para leer un archivo    localhost:3000/archivos/file1
+// ruta para leer un archivo
+// localhost:3000/archivos/file1
 /*
 El escribir :fileName nos permite guardar en el objeto req.params una propiedad llamada fileName, la cual va a almacenar el valor pasado en ese lugar en la peticion
 En este caso req.params.fileName = 'file1';
@@ -42,9 +46,13 @@ app.get('/archivos/:fileName', (req, res) => {
 });
 
 // ruta para renombrar un archivo
+// localhost:3000/archivos/file1
+// en postman, en el body del metodo put enviar el nuevo nombre
 app.put('/archivos/:fileName'), (req, res) => {};
 
 // ruta para eliminar un archivo
+// localhost:3000/file1
+// usar el metodo delete en postman
 app.delete('/archivos/:fileName', (req, res) => {});
 
 const server = http.createServer(app);
