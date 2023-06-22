@@ -1,3 +1,7 @@
+const PORT = process.env.PORT || 3000;
+
+module.exports = { PORT };
+
 /*
 Las variables de entorno representan informacion que nuestro proyecto puede recibir desde afuera.
 Se le entregan al proyecto cuando este se inicia.
@@ -21,6 +25,4 @@ y usando el modulo dotenv.
 */
 
 // si no hay una variable de entorno llamada PORT entonces toma el puerto 3000
-const PORT = process.env.PORT || 3000;
-
-module.exports = { PORT };
+// require('dotenv').config();

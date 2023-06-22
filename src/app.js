@@ -4,11 +4,6 @@ const fs = require('fs');
 
 const app = express();
 
-/*
-Los middlewares son funciones que se ejecutan antes que las peticiones lleguen a las rutas
-En este caso express.json() nos entrega una funcion que parsea el body de las peticiones post, put, patch y lo disponibiliza en el objeto req.body
-*/
-
 // middlewares
 
 app.use(express.json());
@@ -16,56 +11,84 @@ app.use(express.json());
 // routes
 
 // ruta para crear un archivo
-// localhost:3000/archivos
-// al hacer la peticion desde postman, en el body del metodo post agregar la informacion necesaria
 app.post('/archivos', (req, res) => {
-  console.log(req.body);
-  res.end();
+  let { fileName, fileContent } = req.body;
+
+  const fullPath = path.join(__dirname, '..', 'data', `${fileName}.txt`);
+
+  fs.writeFile(fullPath, fileContent, 'utf8', (error) => {
+    if (error) {
+      console.log(error);
+      return res.json({ message: error.message });
+    }
+    return res.json({ message: 'archivo creado' });
+  });
 });
 
 // ruta para leer un archivo
-// localhost:3000/archivos/file1
-/*
-El escribir :fileName nos permite guardar en el objeto req.params una propiedad llamada fileName, la cual va a almacenar el valor pasado en ese lugar en la peticion
-En este caso req.params.fileName = 'file1';
-*/
 app.get('/archivos/:fileName', (req, res) => {
   const { fileName } = req.params;
+
   const fullPath = path.join(__dirname, '..', 'data', `${fileName}.txt`);
-  fs.readFile(fullPath, 'utf-8', (err, data) => {
-    if (err) {
-      if (err.code === 'ENOENT') {
-        res.status(404);
-        return res.json({ message: 'El archivo no existe' });
-      }
-      res.status(500);
-      return res.json({ message: 'error' });
+
+  fs.readFile(fullPath, 'utf-8', (error, data) => {
+    if (error) {
+      console.log(error);
+      return res.json({ message: message.error });
     }
     return res.send(data);
   });
 });
 
 // ruta para renombrar un archivo
-// localhost:3000/archivos/file1
-// en postman, en el body del metodo put enviar el nuevo nombre
-app.put('/archivos/:fileName'), (req, res) => {};
+app.put('/archivos/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  const { newName } = req.body;
+
+  const oldPath = path.join(__dirname, '..', 'data', `${fileName}.txt`);
+  const newPath = path.join(__dirname, '..', 'data', `${newName}.txt`);
+
+  fs.rename(oldPath, newPath, (error) => {
+    if (error) {
+      console.log(error);
+      return res.json({ message: error.message });
+    }
+    return res.json({ message: 'archivo renombrado' });
+  });
+});
 
 // ruta para eliminar un archivo
-// localhost:3000/file1
-// usar el metodo delete en postman
-app.delete('/archivos/:fileName', (req, res) => {});
+app.delete('/archivos/:fileName', (req, res) => {
+  const { fileName } = req.params;
+  const fullPath = path.join(__dirname, '..', 'data', `${fileName}.txt`);
 
-// bonus: ruta que devuelva los nombres de todos los archivos disponibles
+  fs.unlink(fullPath, (error) => {
+    if (error) {
+      console.log(error);
+      return res.json({ message: error.message });
+    }
+    return res.json({ message: 'archivo borrado' });
+  });
+});
+
+// ruta que devuelve los nombres de todos los archivos
 app.get('/archivos', (req, res) => {
-  console.log('get');
   const dirPath = path.join(__dirname, '..', 'data');
+
   fs.readdir(dirPath, (error, data) => {
     if (error) {
       console.log(error);
-      return res.end();
+      return res.json({ message: error.message });
     }
     return res.json({ data });
   });
 });
+
+// app.use(errorHandler);
+
+// function errorHandler(err, req, res, next) {
+//   console.log('ooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+//   res.send(err);
+// }
 
 module.exports = app;
