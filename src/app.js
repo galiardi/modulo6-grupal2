@@ -84,11 +84,13 @@ app.get('/archivos', (req, res) => {
   });
 });
 
-// app.use(errorHandler);
+// exit middlewares
 
-// function errorHandler(err, req, res, next) {
-//   console.log('ooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
-//   res.send(err);
-// }
+app.use(errorHandler);
+
+function errorHandler(err, req, res, next) {
+  console.log(err);
+  res.json({ message: err.message });
+}
 
 module.exports = app;
