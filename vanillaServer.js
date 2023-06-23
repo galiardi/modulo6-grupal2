@@ -1,7 +1,7 @@
 const http = require('http');
 const path = require('path');
 const fs = require('fs');
-const { PORT } = require('./config');
+const PORT = process.env.PORT || 3000;
 
 const server = http.createServer((req, res) => {
   if (req.url === '/archivos' && req.method === 'POST') {
@@ -15,18 +15,24 @@ const server = http.createServer((req, res) => {
       console.log(body);
       const { fileName, fileContent } = body;
 
-      const fullPath = path.join(__dirname, '..', 'data', `${fileName}.txt`);
+      const fullPath = path.join(__dirname, 'data', `${fileName}.txt`);
 
-      fs.writeFile(fullPath, fileContent, 'utf8', (err) => {
-        if (err) {
-          console.log('errooooooooooooooooooooooooor!!!!!!!!!!!!!');
-          res.status(500);
-          return res.json({ message: 'error' });
-        }
-        return res.json({ message: 'archivo creado' });
-      });
+      try {
+        fs.writeFile(fullPath, fileContent, 'utf8', (err) => {
+          if (err) {
+            console.log(err);
+            res.write('error');
+            return res.end();
+          }
+          res.write('archivo creado');
+          return res.end();
+        });
+      } catch (error) {
+        console.log(error);
+        res.write('error');
+        res.end();
+      }
     });
-    res.end();
   }
 });
 
