@@ -40,19 +40,24 @@ function httpAddNewFile(req, res) {
 }
 
 function httpRenameFile(req, res) {
-  const { fileName } = req.params;
-  const { newName } = req.body;
+  try {
+    const { fileName } = req.params;
+    const { newName } = req.body;
 
-  const oldPath = path.join(__dirname, '..', '..', '..', 'data', fileName);
-  const newPath = path.join(__dirname, '..', '..', '..', 'data', `${newName}.txt`);
+    const oldPath = path.join(__dirname, '..', '..', '..', 'data', fileName);
+    const newPath = path.join(__dirname, '..', '..', '..', 'data', `${newName}.txt`);
 
-  fs.rename(oldPath, newPath, (error) => {
-    if (error) {
-      console.log(error);
-      return res.json({ message: error.code });
-    }
-    return res.json({ message: 'archivo renombrado' });
-  });
+    fs.rename(oldPath, newPath, (error) => {
+      if (error) {
+        console.log(error);
+        return res.json({ message: error.code });
+      }
+      return res.json({ message: 'archivo renombrado' });
+    });
+  } catch (error) {
+    console.log(error);
+    res.json({ message: null, error: error.code });
+  }
 }
 
 function httpDeleteFile(req, res) {

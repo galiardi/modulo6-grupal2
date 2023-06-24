@@ -26,75 +26,98 @@ renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSele
 // crear archivo
 addFileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const fileName = addFile_fileName.value;
-  const fileContent = addFile_fileContent.value;
+  try {
+    const fileName = addFile_fileName.value;
+    const fileContent = addFile_fileContent.value;
+    if (fileName === '') return alert('Debe ingresar un nombre de archivo');
 
-  const response = await fetch('/archivos', {
-    method: 'POST',
-    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    body: JSON.stringify({
-      fileName,
-      fileContent,
-    }),
-  });
-  const { message } = await response.json();
-  if (message === 'archivo creado') {
-    addFile_fileName.value = '';
-    addFile_fileContent.value = '';
-    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    const response = await fetch('/archivos', {
+      method: 'POST',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({
+        fileName,
+        fileContent,
+      }),
+    });
+    const { message } = await response.json();
+    if (message === 'archivo creado') {
+      addFile_fileName.value = '';
+      addFile_fileContent.value = '';
+      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    }
+    alert(message);
+  } catch (error) {
+    console.log(error);
+    alert('error');
   }
-  alert(message);
 });
 
 // leer archivo
 getFileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const fileName = getFile_fileSelect.value;
-  if (fileName === '') return;
+  try {
+    const fileName = getFile_fileSelect.value;
+    if (fileName === '') return alert('Debe seleccionar un archivo');
 
-  const response = await fetch(`/archivos/${fileName}`);
-  const { message: fileContent, error } = await response.json();
-  if (fileContent === false) {
-    alert(error);
-    return;
+    const response = await fetch(`/archivos/${fileName}`);
+    const { message: fileContent, error } = await response.json();
+    if (fileContent === false) {
+      alert(error);
+      return;
+    }
+    file_render_screen.innerHTML = fileContent;
+  } catch (error) {
+    console.log(error);
+    alert('error');
   }
-  file_render_screen.innerHTML = fileContent;
 });
 
 // renombrar archivo
 renameFileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const fileName = renameFile_fileSelect.value;
-  const newName = renameFile_newName.value;
-  if (newName === '') return;
+  try {
+    const fileName = renameFile_fileSelect.value;
+    const newName = renameFile_newName.value;
+    if (fileName === '' || newName === '') {
+      return alert('Debe seleccionar un archivo e ingresar un nuevo nombre.');
+    }
 
-  const response = await fetch(`/archivos/${fileName}`, {
-    method: 'PUT',
-    headers: { 'Content-type': 'application/json; charset=UTF-8' },
-    body: JSON.stringify({ newName }),
-  });
-  const { message } = await response.json();
-  if (message === 'archivo renombrado') {
-    renameFile_fileSelect.value = '';
-    renameFile_newName.value = '';
-    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    const response = await fetch(`/archivos/${fileName}`, {
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      body: JSON.stringify({ newName }),
+    });
+    const { message } = await response.json();
+    if (message === 'archivo renombrado') {
+      renameFile_fileSelect.value = '';
+      renameFile_newName.value = '';
+      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    }
+    alert(message);
+  } catch (error) {
+    console.log(error);
+    alert('error');
   }
-  alert(message);
 });
 
 // borrar archivo
 deleteFileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const fileName = deleteFile_fileSelect.value;
-  if (fileName === '') return;
+  try {
+    const fileName = deleteFile_fileSelect.value;
+    if (fileName === '') return alert('Debe seleccionar un archivo');
 
-  const response = await fetch(`archivos/${fileName}`, {
-    method: 'DELETE',
-  });
-  const { message } = await response.json();
-  if (message === 'archivo borrado') {
-    deleteFile_fileSelect.value = '';
-    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    const response = await fetch(`archivos/${fileName}`, {
+      method: 'DELETE',
+    });
+    const { message } = await response.json();
+    if (message === 'archivo borrado') {
+      deleteFile_fileSelect.value = '';
+      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
+    }
+    alert(message);
+  } catch (error) {
+    console.log(error);
+    alert('error');
   }
-  alert(message);
 });
