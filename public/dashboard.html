@@ -44,7 +44,7 @@
     <main>
       <form id="addFileForm">
         <h4>Crear archivo</h4>
-        <input id="addFile-fileName" type="text" placeholder="Nombre del archivo sin extensión" />
+        <input id="addFile-fileName" type="text" placeholder="Nombre del archivo (sin extensión)" />
         <textarea
           id="addFile-fileContent"
           cols="22"
@@ -64,7 +64,11 @@
       <form id="renameFileForm">
         <h4>Renombrar archivo</h4>
         <select id="renameFile-fileSelect"></select>
-        <input id="renameFile-newName" type="text" placeholder="Nuevo nombre del archivo" />
+        <input
+          id="renameFile-newName"
+          type="text"
+          placeholder="Nuevo nombre del archivo (sin extensión)"
+        />
         <button type="submit" class="btn btn-warning">Renombrar archivo</button>
       </form>
 

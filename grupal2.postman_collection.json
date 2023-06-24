@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "632880b3-2c14-492d-a6c0-c9c01d6710a7",
 		"name": "grupal2",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "21934336"
 	},
 	"item": [
@@ -19,7 +19,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"fileName\": \"file1\",\n    \"fileContent\": \"Mi primer archivo\"\n}",
+					"raw": "{\n    \"fileName\": \"file1\",\n    \"fileContent\": \"Hola Mundo\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -56,16 +56,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "localhost:3000/archivos",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"archivos"
-					]
-				}
+				"url": "localhost:3000/archivos"
 			},
 			"response": []
 		},
@@ -74,17 +65,7 @@
 			"request": {
 				"method": "GET",
 				"header": [],
-				"url": {
-					"raw": "localhost:3000/archivos/file1",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"archivos",
-						"file1"
-					]
-				}
+				"url": "localhost:3000/archivos/file1"
 			},
 			"response": []
 		},
@@ -95,43 +76,23 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"newName\": \"file2\"\n}",
+					"raw": "{\n    \"newName\": \"file100\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
 						}
 					}
 				},
-				"url": {
-					"raw": "localhost:3000/archivos/file1",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"archivos",
-						"file1"
-					]
-				}
+				"url": "localhost:3000/archivos/file1"
 			},
 			"response": []
 		},
 		{
-			"name": "localhost:3000/archivos/file2",
+			"name": "localhost:3000/archivos/file100",
 			"request": {
 				"method": "DELETE",
 				"header": [],
-				"url": {
-					"raw": "localhost:3000/archivos/file2",
-					"host": [
-						"localhost"
-					],
-					"port": "3000",
-					"path": [
-						"archivos",
-						"file2"
-					]
-				}
+				"url": "localhost:3000/archivos/file100"
 			},
 			"response": []
 		}
