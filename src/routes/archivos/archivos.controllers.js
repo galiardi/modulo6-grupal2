@@ -20,9 +20,9 @@ function httpGetFile(req, res) {
   fs.readFile(fullPath, 'utf-8', (error, data) => {
     if (error) {
       console.log(error);
-      return res.json({ message: error.code });
+      return res.json({ message: false, error });
     }
-    return res.send(data);
+    return res.json({ message: data });
   });
 }
 
