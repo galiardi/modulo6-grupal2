@@ -42,10 +42,36 @@
       </div>
     </nav>
     <main>
-      <form></form>
-      <form></form>
-      <form></form>
-      <form></form>
+      <form id="addFileForm">
+        <h4>Crear archivo</h4>
+        <input id="addFile-fileName" type="text" placeholder="Nombre del archivo sin extensión" />
+        <textarea
+          id="addFile-fileContent"
+          cols="22"
+          rows="10"
+          placeholder="Contenido..."
+        ></textarea>
+        <button type="submit" class="btn btn-primary">Crear archivo</button>
+      </form>
+
+      <form id="getFileForm">
+        <h4>Leer archivo</h4>
+        <select id="getFile-fileSelect"></select>
+        <button type="submit" class="btn btn-info">Consultar archivo</button>
+      </form>
+
+      <form id="renameFileForm">
+        <h4>Renombrar archivo</h4>
+        <select id="renameFile-fileSelect"></select>
+        <input id="renameFile-newName" type="text" placeholder="Nuevo nombre del archivo" />
+        <button type="submit" class="btn btn-warning">Renombrar archivo</button>
+      </form>
+
+      <form id="deleteFileForm">
+        <h4>Borrar archivo</h4>
+        <select id="deleteFile-fileSelect"></select>
+        <button type="submit" class="btn btn-danger">Borrar archivo</button>
+      </form>
     </main>
     <footer class="bg-body-tertiary">
       <a href="https://github.com/galiardi/modulo6-grupal2"><i class="bi bi-github"></i></a>
@@ -57,5 +83,6 @@
       integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
       crossorigin="anonymous"
     ></script>
+    <script src="assets/js/dashboard.js" type="module"></script>
   </body>
 </html>

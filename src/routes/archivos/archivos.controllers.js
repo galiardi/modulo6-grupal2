@@ -15,7 +15,7 @@ function httpGetAllFileNames(req, res) {
 
 function httpGetFile(req, res) {
   const { fileName } = req.params;
-  const fullPath = path.join(__dirname, '..', '..', '..', 'data', `${fileName}.txt`);
+  const fullPath = path.join(__dirname, '..', '..', '..', 'data', fileName);
 
   fs.readFile(fullPath, 'utf-8', (error, data) => {
     if (error) {
@@ -43,7 +43,7 @@ function httpRenameFile(req, res) {
   const { fileName } = req.params;
   const { newName } = req.body;
 
-  const oldPath = path.join(__dirname, '..', '..', '..', 'data', `${fileName}.txt`);
+  const oldPath = path.join(__dirname, '..', '..', '..', 'data', fileName);
   const newPath = path.join(__dirname, '..', '..', '..', 'data', `${newName}.txt`);
 
   fs.rename(oldPath, newPath, (error) => {
@@ -57,7 +57,7 @@ function httpRenameFile(req, res) {
 
 function httpDeleteFile(req, res) {
   const { fileName } = req.params;
-  const fullPath = path.join(__dirname, '..', '..', '..', 'data', `${fileName}.txt`);
+  const fullPath = path.join(__dirname, '..', '..', '..', 'data', fileName);
 
   fs.unlink(fullPath, (error) => {
     if (error) {
