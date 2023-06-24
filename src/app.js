@@ -19,11 +19,11 @@ app.get('/', (req, res) => {
 
 // exit middlewares
 
-app.use(errorHandler);
+app.use(customErrorHandler);
 
-function errorHandler(err, req, res, next) {
-  console.log('ERROR CATCHED ON errorHandler:', err);
-  res.json({ message: err.code });
+function customErrorHandler(error, req, res, next) {
+  console.log('ERROR CATCHED ON customErrorHandler:', error);
+  res.json({ message: false, error });
 }
 
 module.exports = app;

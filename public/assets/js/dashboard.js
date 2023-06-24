@@ -39,12 +39,13 @@ addFileForm.addEventListener('submit', async (e) => {
         fileContent,
       }),
     });
-    const { message } = await response.json();
-    if (message === 'archivo creado') {
-      addFile_fileName.value = '';
-      addFile_fileContent.value = '';
-      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
-    }
+    const { message, error } = await response.json();
+
+    if (error) return alert(error);
+
+    addFile_fileName.value = '';
+    addFile_fileContent.value = '';
+    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
     alert(message);
   } catch (error) {
     console.log(error);
@@ -61,10 +62,9 @@ getFileForm.addEventListener('submit', async (e) => {
 
     const response = await fetch(`/archivos/${fileName}`);
     const { message: fileContent, error } = await response.json();
-    if (fileContent === false) {
-      alert(error);
-      return;
-    }
+
+    if (error) return alert(error);
+
     file_render_screen.innerHTML = fileContent;
   } catch (error) {
     console.log(error);
@@ -87,12 +87,13 @@ renameFileForm.addEventListener('submit', async (e) => {
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
       body: JSON.stringify({ newName }),
     });
-    const { message } = await response.json();
-    if (message === 'archivo renombrado') {
-      renameFile_fileSelect.value = '';
-      renameFile_newName.value = '';
-      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
-    }
+    const { message, error } = await response.json();
+
+    if (error) return alert(error);
+
+    renameFile_fileSelect.value = '';
+    renameFile_newName.value = '';
+    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
     alert(message);
   } catch (error) {
     console.log(error);
@@ -110,11 +111,12 @@ deleteFileForm.addEventListener('submit', async (e) => {
     const response = await fetch(`archivos/${fileName}`, {
       method: 'DELETE',
     });
-    const { message } = await response.json();
-    if (message === 'archivo borrado') {
-      deleteFile_fileSelect.value = '';
-      renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
-    }
+    const { message, error } = await response.json();
+
+    if (error) return alert(error);
+
+    deleteFile_fileSelect.value = '';
+    renderFileOptions(getFile_fileSelect, renameFile_fileSelect, deleteFile_fileSelect);
     alert(message);
   } catch (error) {
     console.log(error);
